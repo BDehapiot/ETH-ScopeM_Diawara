@@ -35,3 +35,5 @@ Option #2
 - Click `run` in the new IDE window to execute the macro
 
 ## Usage
+
+Simply open an image and run the macro.
