@@ -1,2 +1,2 @@
 # ETH_ScopeM_Diawara
-Bacteria cluster segmentatio,
+Bacteria cluster segmentation
