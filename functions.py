@@ -536,7 +536,7 @@ def plot_clusters(
                 ax.set_xticks(np.arange(0, 1.1, 0.1))
                 ax.set_xlabel("count")
                 ax.invert_yaxis()
-                ax.set_yticks(np.arange(0, 3, 1))
+                ax.set_yticks(np.arange(len(conditions)))
                 ax.set_yticklabels(conditions)
                 ax.set_title(
                     f"clt_obj_num_cat {cat_names}"
