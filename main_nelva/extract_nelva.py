@@ -12,7 +12,7 @@ from functions import load_data, normalize_data, save_patches
 #%% Inputs --------------------------------------------------------------------
 
 # Path(s)
-dataset = "nelva"
+dataset = "nelva_5w"
 # data_path = Path(rf"C:\Users\bdeha\Projects\local\local_Diawara\data_{dataset}")
 # data_path = Path(f"D:\local_Diawara\data_{dataset}")
 data_path = Path(f"D:\local_Diawara\data_{dataset}")

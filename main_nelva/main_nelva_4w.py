@@ -8,7 +8,7 @@ from display import Display
 
 #%% Inputs --------------------------------------------------------------------
 
-dataset = "nelva"
+dataset = "nelva_4w"
 
 # Procedure
 procedure = {
@@ -17,7 +17,7 @@ procedure = {
     "predict" : 0,
     "process" : 0,
     "analyse" : 0,
-    "display" : 0,
+    "display" : 1,
     
     }
 
@@ -44,12 +44,12 @@ parameters = {
     "parallel"         : True,
     
     "c1" : {
-        "obj_thresh_0" : 0.2,
-        "obj_thresh_1" : 0.5,
+        "obj_thresh_0" : 0.15,
+        "obj_thresh_1" : 0.35,
         "obj_min_size" : 16,
         "clt_max_dist" : 5,
-        "grd_sigma"    : None,
-        "clt_min_grd"  : None,
+        "grd_sigma"    : 1,
+        "clt_min_grd"  : 0.0085,
         },
     
     "c2" : {
@@ -57,16 +57,16 @@ parameters = {
         "obj_thresh_1" : 0.5,
         "obj_min_size" : 16,
         "clt_max_dist" : 5,
-        "grd_sigma"    : None,
-        "clt_min_grd"  : None,
+        "grd_sigma"    : 1,
+        "clt_min_grd"  : 0.0085,
         },
     
     # Analyse
-    "conditions"       : ["0.5mgml", "1.0mgml"],
+    "conditions"       : ["0.0625", "0.125", "0.25", "0.5"],
     "categories"       : [3, 10],
     "min_clt_obj_num"  : 3,
     "min_clt_area"     : 1,
-    "conds_color"      : ["red", "blue"],
+    "conds_color"      : ["gray", "red", "green", "blue"],
     "shade_color"      : [20, 40, 60],
     "chns_color"       : ["green", "red"],
     
