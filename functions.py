@@ -273,15 +273,33 @@ def filter_clusters(df_all, min_clt_obj_num, min_clt_area):
     return df_all[idx]
     
 def get_clt_obj_num_dist(df_all, conditions):
-    
+
     max_obj_num = np.max(df_all["obj_num"]) + 1
     
     clt_obj_num_dist = pd.DataFrame()
     for cond in conditions:
         df = df_all[df_all["stem"].str.contains(cond, case=False, na=False)]
-        val = np.array(df["obj_num"]) 
+        
+        # val = np.array(df["obj_num"]) 
+        # /////////////////////////////////////////////////////////////////////
+        
+        val = pd.to_numeric(df["obj_num"], errors="coerce").fillna(0).astype(int).to_numpy()
+        
+        # /////////////////////////////////////////////////////////////////////
+        
         count = np.bincount(val, minlength=max_obj_num)
-        count = count / count.sum()
+        
+        # count = count / count.sum()
+        # /////////////////////////////////////////////////////////////////////
+        
+        count_sum = count.sum()
+        if count_sum > 0:
+            count = count / count_sum
+        else:
+            count = count.astype(float)
+        
+        # /////////////////////////////////////////////////////////////////////
+        
         clt_obj_num_dist[f"{cond}"] = count
         clt_obj_num_dist.index.name = "clt_obj_num"
     
@@ -343,7 +361,20 @@ def avg_results_stem(results, stems):
     df_stm_avg["stem"     ] = stems
     df_stm_avg["obj_num"  ] = obj_num
     df_stm_avg["clt_num"  ] = clt_num_f
-    df_stm_avg["clt_ratio"] = np.array(clt_num_f) / np.array(clt_num)
+    
+    # df_stm_avg["clt_ratio"] = np.array(clt_num_f) / np.array(clt_num)
+    # /////////////////////////////////////////////////////////////////////////
+    
+    num_f = np.array(clt_num_f)
+    num_all = np.array(clt_num)
+    df_stm_avg["clt_ratio"] = np.divide(
+        num_f, num_all, 
+        out=np.zeros_like(num_f, dtype=float), 
+        where=num_all > 0
+        )
+    
+    # /////////////////////////////////////////////////////////////////////////
+    
     for tag in ["obj", "clt"]:
         avg_stem(df_stm_avg, tag=tag, measure="area")
         avg_stem(df_stm_avg, tag=tag, measure="intensity")
@@ -376,7 +407,7 @@ def process_results(
         segmentation, min_clt_obj_num, min_clt_area,
         chn="c0",
         ):
-        
+            
     results = {}
             
     for tag in ["obj", "clt"]:
@@ -389,8 +420,13 @@ def process_results(
             df = pd.read_csv(out_path / f"{chn}_{tag}_results.csv")
             df_stm.append(df)
         results[f"{tag}_results_stm"] = df_stm
-        df_all = pd.concat(df_stm, ignore_index=False)
-        df_all = df_all.reset_index(drop=True)
+        
+        valid_dfs = [d for d in df_stm if not d.empty]
+        if valid_dfs:
+            df_all = pd.concat(
+                valid_dfs, ignore_index=False).reset_index(drop=True)
+        else:
+            df_all = pd.DataFrame(columns=df.columns)
         results[f"{tag}_results_all"] = df_all
         
         if tag == "clt":
@@ -403,8 +439,14 @@ def process_results(
                     df, min_clt_obj_num, min_clt_area)
                 df_stm_f.append(df_f)
             results[f"{tag}_results_stm_f"] = df_stm_f
-            df_all_f = pd.concat(df_stm_f, ignore_index=False)
-            df_all_f = df_all_f.reset_index(drop=True)
+            
+            valid_dfs_f = [d for d in df_stm_f if len(d) > 0]
+            if valid_dfs_f:
+                df_all_f = pd.concat(valid_dfs_f, ignore_index=False)
+                df_all_f = df_all_f.reset_index(drop=True)
+            else:
+                df_all_f = pd.DataFrame(columns=df.columns)
+                
             results[f"{tag}_results_all_f"] = df_all_f
         
             # Cluster distribution & categories

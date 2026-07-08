@@ -49,7 +49,7 @@ parameters = {
         "obj_min_size" : 16,
         "clt_max_dist" : 5,
         "grd_sigma"    : 1,
-        "clt_min_grd"  : 0.0085,
+        "clt_min_grd"  : 0.02,
         },
     
     "c2" : {
@@ -58,7 +58,7 @@ parameters = {
         "obj_min_size" : 16,
         "clt_max_dist" : 5,
         "grd_sigma"    : 1,
-        "clt_min_grd"  : 0.0085,
+        "clt_min_grd"  : 0.02,
         },
     
     # Analyse
