@@ -12,7 +12,7 @@ from functions import load_data, normalize_data, save_patches
 #%% Inputs --------------------------------------------------------------------
 
 # Path(s)
-dataset = "nelva_5w"
+dataset = "nelva_40"
 # data_path = Path(rf"C:\Users\bdeha\Projects\local\local_Diawara\data_{dataset}")
 # data_path = Path(f"D:\local_Diawara\data_{dataset}")
 data_path = Path(f"D:\local_Diawara\data_{dataset}")
@@ -31,7 +31,7 @@ def extract(data_path):
         
         # Normalize
         c0s = normalize_data(c0s, low_qtl=0.25)
-        c1s = normalize_data(c1s, low_qtl=None)
+        c1s = normalize_data(c1s, low_qtl=0.25)
         c2s = normalize_data(c2s, low_qtl=0.25)
     
         # Save data

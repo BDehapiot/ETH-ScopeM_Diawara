@@ -45,7 +45,7 @@ parameters = {
     
     "c1" : {
         "obj_thresh_0" : 0.15,
-        "obj_thresh_1" : 0.35,
+        "obj_thresh_1" : 0.3,
         "obj_min_size" : 16,
         "clt_max_dist" : 5,
         "grd_sigma"    : 1,
