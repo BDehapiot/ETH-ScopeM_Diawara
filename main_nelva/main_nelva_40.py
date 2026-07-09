@@ -16,8 +16,8 @@ procedure = {
     "prepare" : 0,
     "predict" : 0,
     "process" : 0,
-    "analyse" : 1,
-    "display" : 0,
+    "analyse" : 0,
+    "display" : 1,
     
     }
 
